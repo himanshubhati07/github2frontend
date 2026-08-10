@@ -1,0 +1,19 @@
+<header class="sticky top-0 z-20 hidden h-20 items-center justify-between border-b border-line bg-white/90 px-8 backdrop-blur lg:flex">
+  <div>
+    <p class="text-sm font-medium text-muted">Employee Attendance Management</p>
+    <h1 class="text-xl font-bold text-ink">Welcome back, {{ auth.currentUser()?.name || 'User' }}</h1>
+  </div>
+  <div class="flex items-center gap-4">
+    <a routerLink="/face-scan" class="btn-primary">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3H5a2 2 0 00-2 2v2m14-4h2a2 2 0 012 2v2M7 21H5a2 2 0 01-2-2v-2m18 0v2a2 2 0 01-2 2h-2" /></svg>
+      Quick Face Scan
+    </a>
+    <div class="flex items-center gap-3 rounded-2xl border border-line bg-white px-3 py-2">
+      <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-primary">{{ (auth.currentUser()?.name || 'U').slice(0, 1) }}</div>
+      <div>
+        <p class="text-sm font-bold text-ink">{{ auth.currentUser()?.name || 'User' }}</p>
+        <p class="text-xs capitalize text-muted">{{ auth.currentRole() }}</p>
+      </div>
+    </div>
+  </div>
+</header>

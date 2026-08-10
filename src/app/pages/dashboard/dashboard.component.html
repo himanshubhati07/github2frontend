@@ -1,0 +1,58 @@
+<div class="space-y-6">
+  <section class="flex flex-col justify-between gap-4 rounded-[2rem] bg-gradient-to-r from-primary to-accent p-6 text-white shadow-soft sm:flex-row sm:items-center">
+    <div>
+      <p class="text-sm font-semibold text-blue-100">Today • {{ today }}</p>
+      <h2 class="mt-2 text-3xl font-bold">Attendance Dashboard</h2>
+      <p class="mt-2 max-w-2xl text-blue-50">Monitor daily attendance, currently checked-in employees, and quick face scan activity.</p>
+    </div>
+    <button type="button" (click)="router.navigate(['/face-scan'])" class="rounded-button bg-white px-5 py-3 text-sm font-bold text-primary shadow-lg transition hover:bg-blue-50">Start Face Scan</button>
+  </section>
+
+  <section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="card p-5"><p class="text-sm font-semibold text-muted">Total Employees</p><p class="mt-3 text-3xl font-bold">{{ activeEmployees().length }}</p><p class="mt-2 text-xs text-success">Active workforce</p></div>
+    <div class="card p-5"><p class="text-sm font-semibold text-muted">Present Today</p><p class="mt-3 text-3xl font-bold">{{ presentToday() }}</p><p class="mt-2 text-xs text-success">Face verified entries</p></div>
+    <div class="card p-5"><p class="text-sm font-semibold text-muted">Absent Today</p><p class="mt-3 text-3xl font-bold">{{ absentToday() }}</p><p class="mt-2 text-xs text-danger">Pending check-in</p></div>
+    <div class="card p-5"><p class="text-sm font-semibold text-muted">Currently Checked In</p><p class="mt-3 text-3xl font-bold">{{ checkedIn() }}</p><p class="mt-2 text-xs text-info">Working now</p></div>
+  </section>
+
+  <section class="grid gap-6 xl:grid-cols-3">
+    <div class="card p-6 xl:col-span-2">
+      <div class="mb-5 flex items-center justify-between">
+        <div><h3 class="text-lg font-bold">Today's attendance summary</h3><p class="text-sm text-muted">Latest employee status for the day</p></div>
+        <button type="button" (click)="router.navigate(['/attendance/history'])" class="btn-secondary">View History</button>
+      </div>
+      @if (todayRecords().length === 0) {
+        <div class="rounded-2xl border border-dashed border-line p-8 text-center text-muted">No attendance records yet — start a face scan.</div>
+      } @else {
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[680px] text-left text-sm">
+            <thead class="text-xs uppercase text-muted"><tr class="border-b border-line"><th class="py-3">Employee</th><th>Time In</th><th>Time Out</th><th>Working Hours</th><th>Status</th></tr></thead>
+            <tbody>
+              @for (record of todayRecords(); track record.id) {
+                <tr class="border-b border-line last:border-0">
+                  <td class="py-4 font-semibold">{{ employeeName(record.employeeId) }}</td>
+                  <td>{{ record.timeIn || '—' }}</td>
+                  <td>{{ record.timeOut || '—' }}</td>
+                  <td>{{ record.workingHours }}</td>
+                  <td><span class="badge" [class.bg-green-100]="record.status === 'Present'" [class.text-success]="record.status === 'Present'" [class.bg-amber-100]="record.status === 'Late'" [class.text-warning]="record.status === 'Late'" [class.bg-red-100]="record.status === 'Absent'" [class.text-danger]="record.status === 'Absent'">{{ record.status }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+    <div class="card p-6">
+      <h3 class="text-lg font-bold">Quick actions</h3>
+      <div class="mt-5 space-y-3">
+        <button type="button" (click)="router.navigate(['/employees/new'])" class="btn-primary w-full">Add Employee</button>
+        <button type="button" (click)="router.navigate(['/attendance'])" class="btn-secondary w-full">Time In / Time Out</button>
+        <button type="button" (click)="router.navigate(['/time-cards'])" class="btn-secondary w-full">Open Time Cards</button>
+      </div>
+      <div class="mt-6 rounded-3xl bg-muted-light p-4">
+        <p class="font-bold">Demo note</p>
+        <p class="mt-1 text-sm text-muted">Face verification is simulated for frontend demonstration and records mock attendance locally.</p>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,49 @@
+<aside class="sticky top-0 z-30 hidden h-screen w-72 flex-col border-r border-line bg-ink text-white lg:flex">
+  <div class="flex h-20 items-center gap-3 px-6">
+    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+    </div>
+    <div>
+      <p class="text-lg font-bold">Face ID UI</p>
+      <p class="text-xs text-slate-300">Attendance Manager</p>
+    </div>
+  </div>
+  <nav class="flex-1 space-y-1 px-4 py-4">
+    @for (item of navItems; track item.to) {
+      @if (canSee(item.roles)) {
+        <a [routerLink]="item.to" routerLinkActive="bg-primary text-white shadow-lg shadow-blue-950/20" [routerLinkActiveOptions]="{ exact: false }" class="group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold text-slate-300 transition hover:bg-slate-800 hover:text-white">
+          @switch (item.icon) {
+            @case ('dashboard') { <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13h8V3H3v10zm10 8h8V11h-8v10zM3 21h8v-6H3v6zm10-12h8V3h-8v6z" /></svg> }
+            @case ('users') { <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m8-3.13a4 4 0 10-8 0 4 4 0 008 0zm6 4a4 4 0 10-3-6.83" /></svg> }
+            @case ('scan') { <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3H5a2 2 0 00-2 2v2m14-4h2a2 2 0 012 2v2M7 21H5a2 2 0 01-2-2v-2m18 0v2a2 2 0 01-2 2h-2M8 11a4 4 0 118 0m-8 6a6 6 0 0112 0" /></svg> }
+            @case ('clock') { <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> }
+            @case ('card') { <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z" /></svg> }
+            @case ('report') { <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M7 4h7l5 5v11a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z" /></svg> }
+            @default { <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.966 8.966 0 0112 15c2.21 0 4.236.8 5.8 2.126M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg> }
+          }
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    }
+  </nav>
+  <div class="border-t border-slate-800 p-4">
+    <button type="button" (click)="logout()" class="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold text-slate-300 transition hover:bg-danger hover:text-white">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" /></svg>
+      Logout
+    </button>
+  </div>
+</aside>
+
+<div class="border-b border-line bg-white px-4 py-3 lg:hidden">
+  <div class="mb-3 flex items-center justify-between">
+    <p class="font-bold text-ink">Face ID UI</p>
+    <button type="button" (click)="logout()" class="text-sm font-semibold text-danger">Logout</button>
+  </div>
+  <nav class="flex gap-2 overflow-x-auto pb-1">
+    @for (item of navItems; track item.to) {
+      @if (canSee(item.roles)) {
+        <a [routerLink]="item.to" routerLinkActive="bg-primary text-white" [routerLinkActiveOptions]="{ exact: false }" class="whitespace-nowrap rounded-full border border-line px-3 py-2 text-xs font-semibold text-muted">{{ item.label }}</a>
+      }
+    }
+  </nav>
+</div>

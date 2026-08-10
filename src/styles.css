@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+  body { @apply bg-muted-light text-ink antialiased; }
+  button, input, select, textarea { font: inherit; }
+}
+
+@layer components {
+  .card { @apply rounded-card border border-line bg-surface shadow-soft; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-button bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-secondary { @apply inline-flex items-center justify-center gap-2 rounded-button border border-line bg-white px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-muted-light disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-danger { @apply inline-flex items-center justify-center gap-2 rounded-button bg-danger px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50; }
+  .input { @apply w-full rounded-button border border-line bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-4 focus:ring-blue-100; }
+  .label { @apply text-sm font-semibold text-slate-700; }
+  .error { @apply mt-1 text-xs font-medium text-danger; }
+  .badge { @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold; }
+}

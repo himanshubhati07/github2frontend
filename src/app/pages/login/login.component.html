@@ -1,0 +1,45 @@
+<main class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-4 text-white sm:p-8">
+  <div class="mx-auto grid min-h-[calc(100vh-4rem)] max-w-6xl items-center gap-10 lg:grid-cols-2">
+    <section class="hidden lg:block">
+      <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-100">
+        <span class="h-2 w-2 rounded-full bg-success"></span> Demo biometric attendance frontend
+      </div>
+      <h1 class="max-w-xl text-5xl font-bold leading-tight">Professional attendance management with mock Face ID check-ins.</h1>
+      <p class="mt-5 max-w-lg text-lg text-slate-300">Manage employees, verify face scans, record check-ins and generate time card reports from one clean dashboard.</p>
+      <div class="mt-8 grid max-w-lg grid-cols-3 gap-4">
+        <div class="rounded-3xl border border-white/10 bg-white/10 p-5"><p class="text-3xl font-bold">10</p><p class="text-sm text-slate-300">Employees</p></div>
+        <div class="rounded-3xl border border-white/10 bg-white/10 p-5"><p class="text-3xl font-bold">4</p><p class="text-sm text-slate-300">Present Today</p></div>
+        <div class="rounded-3xl border border-white/10 bg-white/10 p-5"><p class="text-3xl font-bold">2</p><p class="text-sm text-slate-300">Checked In</p></div>
+      </div>
+    </section>
+
+    <section class="mx-auto w-full max-w-md rounded-[2rem] bg-white p-8 text-ink shadow-2xl">
+      <div class="mb-8">
+        <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white">
+          <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3H5a2 2 0 00-2 2v2m14-4h2a2 2 0 012 2v2M8 11a4 4 0 118 0m-8 6a6 6 0 0112 0" /></svg>
+        </div>
+        <h2 class="text-3xl font-bold">Sign in</h2>
+        <p class="mt-2 text-sm text-muted">Use admin&#64;example.com / password123</p>
+      </div>
+
+      @if (error()) {
+        <div class="mb-4 rounded-2xl border border-red-200 bg-red-50 p-3 text-sm font-semibold text-danger">{{ error() }}</div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <label class="label" for="email">Email address</label>
+          <input id="email" class="input mt-1" type="email" formControlName="email" placeholder="admin@example.com" />
+          @if (form.get('email')?.touched && form.get('email')?.invalid) { <p class="error">Enter a valid email address.</p> }
+        </div>
+        <div>
+          <label class="label" for="password">Password</label>
+          <input id="password" class="input mt-1" type="password" formControlName="password" placeholder="password123" />
+          @if (form.get('password')?.touched && form.get('password')?.invalid) { <p class="error">Password must be at least 6 characters.</p> }
+        </div>
+        <button type="submit" class="btn-primary w-full" [disabled]="form.invalid || loading()">{{ loading() ? 'Signing in...' : 'Login' }}</button>
+      </form>
+      <p class="mt-6 text-center text-sm text-muted">New user? <a routerLink="/signup" class="font-bold text-primary">Create an account</a></p>
+    </section>
+  </div>
+</main>

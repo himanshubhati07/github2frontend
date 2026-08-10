@@ -1,0 +1,16 @@
+<div class="mx-auto max-w-3xl space-y-6">
+  <button type="button" (click)="location.back()" class="btn-secondary">← Back</button>
+  <section class="card p-6 sm:p-8">
+    <div class="mb-6"><h2 class="text-3xl font-bold">{{ mode() === 'edit' ? 'Edit employee' : 'Add new employee' }}</h2><p class="mt-1 text-muted">Capture employee profile details and face registration status.</p></div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid gap-5 sm:grid-cols-2">
+      <div class="sm:col-span-2"><label class="label" for="name">Employee Name</label><input id="name" class="input mt-1" formControlName="name" placeholder="Rahul Sharma" />@if (form.get('name')?.touched && form.get('name')?.invalid) { <p class="error">Name is required.</p> }</div>
+      <div><label class="label" for="email">Email</label><input id="email" class="input mt-1" type="email" formControlName="email" placeholder="employee@company.com" />@if (form.get('email')?.touched && form.get('email')?.invalid) { <p class="error">Valid email is required.</p> }</div>
+      <div><label class="label" for="phone">Phone Number</label><input id="phone" class="input mt-1" formControlName="phone" placeholder="+91 98765 43210" />@if (form.get('phone')?.touched && form.get('phone')?.invalid) { <p class="error">Phone number is required.</p> }</div>
+      <div><label class="label" for="department">Department</label><select id="department" class="input mt-1" formControlName="department"><option value="">Select department</option><option>Engineering</option><option>Human Resources</option><option>Sales</option><option>Finance</option><option>Operations</option><option>Marketing</option><option>Design</option><option>Support</option></select>@if (form.get('department')?.touched && form.get('department')?.invalid) { <p class="error">Department is required.</p> }</div>
+      <div><label class="label" for="designation">Designation</label><input id="designation" class="input mt-1" formControlName="designation" placeholder="Frontend Developer" />@if (form.get('designation')?.touched && form.get('designation')?.invalid) { <p class="error">Designation is required.</p> }</div>
+      <div><label class="label" for="joiningDate">Joining Date</label><input id="joiningDate" class="input mt-1" type="date" formControlName="joiningDate" />@if (form.get('joiningDate')?.touched && form.get('joiningDate')?.invalid) { <p class="error">Joining date is required.</p> }</div>
+      <label class="mt-7 flex items-center gap-3 rounded-2xl border border-line p-3 text-sm font-semibold"><input type="checkbox" formControlName="faceRegistered" class="h-4 w-4 rounded border-line text-primary" /> Face Scan / Face Registration completed</label>
+      <div class="sm:col-span-2 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><button type="button" (click)="location.back()" class="btn-secondary">Cancel</button><button type="submit" class="btn-primary" [disabled]="form.invalid">{{ mode() === 'edit' ? 'Save changes' : 'Create employee' }}</button></div>
+    </form>
+  </section>
+</div>

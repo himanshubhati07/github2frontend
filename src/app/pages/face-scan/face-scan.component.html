@@ -1,0 +1,44 @@
+<div class="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+  <section class="card p-6 sm:p-8">
+    <p class="badge bg-amber-100 text-warning">Mock demo feature</p>
+    <h2 class="mt-4 text-3xl font-bold">Face Scan Attendance</h2>
+    <p class="mt-2 text-muted">This frontend simulates face verification. No real camera or biometric recognition is used.</p>
+
+    <div class="mt-6">
+      <label class="label" for="employee">Employee</label>
+      <select id="employee" class="input mt-1" [ngModel]="selectedEmployeeId()" (ngModelChange)="selectedEmployeeId.set($event); scanState.set('idle'); message.set('Ready for mock face scan.')">
+        @for (employee of employees(); track employee.id) { <option [value]="employee.id">{{ employee.name }} • {{ employee.employeeId }}</option> }
+      </select>
+    </div>
+
+    <div class="mt-8 flex min-h-80 items-center justify-center rounded-[2rem] border border-dashed border-blue-200 bg-blue-50">
+      <div class="text-center">
+        <div class="relative mx-auto flex h-40 w-40 items-center justify-center rounded-full border-4" [class.border-primary]="scanState() !== 'error'" [class.border-danger]="scanState() === 'error'" [class.animate-pulse]="scanState() === 'scanning'">
+          <svg class="h-24 w-24 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 11a4 4 0 118 0m-8 6a6 6 0 0112 0M7 3H5a2 2 0 00-2 2v2m18 0V5a2 2 0 00-2-2h-2M3 17v2a2 2 0 002 2h2m10 0h2a2 2 0 002-2v-2" /></svg>
+        </div>
+        <p class="mt-5 text-lg font-bold">{{ message() }}</p>
+        @if (selectedEmployee()) { <p class="mt-1 text-sm text-muted">Selected: {{ selectedEmployee()!.name }}</p> }
+      </div>
+    </div>
+
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <button type="button" (click)="startScan()" class="btn-primary" [disabled]="scanState() === 'scanning'">{{ scanState() === 'scanning' ? 'Scanning...' : 'Start face scan' }}</button>
+      <button type="button" (click)="recordAttendance()" class="btn-secondary" [disabled]="scanState() !== 'verified'">Record attendance</button>
+      <button type="button" (click)="router.navigate(['/attendance'])" class="btn-secondary">Go to Time In / Time Out</button>
+    </div>
+  </section>
+
+  <section class="space-y-6">
+    <div class="card p-6">
+      <h3 class="text-lg font-bold">Verification status</h3>
+      <div class="mt-4 rounded-3xl p-5" [class.bg-green-50]="scanState() === 'verified' || scanState() === 'recorded'" [class.bg-blue-50]="scanState() === 'idle' || scanState() === 'scanning'" [class.bg-red-50]="scanState() === 'error'">
+        <p class="text-2xl font-bold capitalize">{{ scanState() }}</p>
+        <p class="mt-1 text-sm text-muted">Successful verification creates or reuses today's check-in record.</p>
+      </div>
+    </div>
+    <div class="card p-6">
+      <h3 class="text-lg font-bold">How demo scan works</h3>
+      <ol class="mt-4 space-y-3 text-sm text-muted"><li>1. Select an active employee.</li><li>2. Click Start face scan.</li><li>3. The mock verifier returns Face Verified.</li><li>4. Click Record attendance to check in.</li></ol>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,35 @@
+<div class="space-y-6">
+  <section class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+    <div><h2 class="text-3xl font-bold">Employees</h2><p class="mt-1 text-muted">Search, view, add, edit, deactivate or delete employees.</p></div>
+    <button type="button" (click)="router.navigate(['/employees/new'])" class="btn-primary">Add new employee</button>
+  </section>
+
+  @if (message()) { <div class="rounded-2xl border border-green-200 bg-green-50 p-4 text-sm font-semibold text-success">{{ message() }}</div> }
+
+  <section class="card p-5">
+    <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <input class="input sm:max-w-sm" [ngModel]="query()" (ngModelChange)="query.set($event)" placeholder="Search employees by name, ID, department..." />
+      <p class="text-sm font-semibold text-muted">{{ filteredEmployees().length }} employees found</p>
+    </div>
+    @if (filteredEmployees().length === 0) {
+      <div class="rounded-2xl border border-dashed border-line p-10 text-center"><p class="font-bold">No employees yet</p><p class="mt-1 text-sm text-muted">Add an employee to start tracking attendance.</p></div>
+    } @else {
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[980px] text-left text-sm">
+          <thead class="text-xs uppercase text-muted"><tr class="border-b border-line"><th class="py-3">Employee</th><th>ID</th><th>Department</th><th>Designation</th><th>Face</th><th>Status</th><th class="text-right">Actions</th></tr></thead>
+          <tbody>
+            @for (employee of filteredEmployees(); track employee.id) {
+              <tr class="cursor-pointer border-b border-line transition last:border-0 hover:bg-muted-light" (click)="router.navigate(['/employees', employee.id])">
+                <td class="py-4"><div class="flex items-center gap-3"><img [src]="employee.photoUrl" [alt]="employee.name" class="h-10 w-10 rounded-full bg-blue-50" /><div><p class="font-bold">{{ employee.name }}</p><p class="text-xs text-muted">{{ employee.email }}</p></div></div></td>
+                <td class="font-semibold">{{ employee.employeeId }}</td><td>{{ employee.department }}</td><td>{{ employee.designation }}</td>
+                <td><span class="badge" [class.bg-green-100]="employee.faceRegistered" [class.text-success]="employee.faceRegistered" [class.bg-amber-100]="!employee.faceRegistered" [class.text-warning]="!employee.faceRegistered">{{ employee.faceRegistered ? 'Registered' : 'Pending' }}</span></td>
+                <td><span class="badge" [class.bg-blue-100]="employee.status === 'Active'" [class.text-primary]="employee.status === 'Active'" [class.bg-slate-200]="employee.status === 'Inactive'" [class.text-muted]="employee.status === 'Inactive'">{{ employee.status }}</span></td>
+                <td class="text-right" (click)="$event.stopPropagation()"><div class="flex justify-end gap-2"><button type="button" (click)="router.navigate(['/employees', employee.id, 'edit'])" class="btn-secondary px-3 py-2">Edit</button><button type="button" (click)="deactivate(employee)" class="btn-secondary px-3 py-2">{{ employee.status === 'Active' ? 'Deactivate' : 'Activate' }}</button><button type="button" (click)="deleteEmployee(employee)" class="btn-danger px-3 py-2">Delete</button></div></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+</div>

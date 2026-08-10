@@ -1,0 +1,28 @@
+<main class="flex min-h-screen items-center justify-center bg-muted-light p-4">
+  <section class="w-full max-w-lg rounded-[2rem] bg-white p-8 shadow-soft">
+    <a routerLink="/login" class="mb-6 inline-flex items-center text-sm font-bold text-primary">← Back to login</a>
+    <h1 class="text-3xl font-bold text-ink">Create account</h1>
+    <p class="mt-2 text-sm text-muted">Signup creates a demo employee-role user and signs you in.</p>
+
+    @if (error()) { <div class="mt-5 rounded-2xl border border-red-200 bg-red-50 p-3 text-sm font-semibold text-danger">{{ error() }}</div> }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-6 space-y-4">
+      <div>
+        <label class="label" for="name">Full name</label>
+        <input id="name" class="input mt-1" formControlName="name" placeholder="Your name" />
+        @if (form.get('name')?.touched && form.get('name')?.invalid) { <p class="error">Name is required.</p> }
+      </div>
+      <div>
+        <label class="label" for="email">Email</label>
+        <input id="email" class="input mt-1" type="email" formControlName="email" placeholder="you@company.com" />
+        @if (form.get('email')?.touched && form.get('email')?.invalid) { <p class="error">Valid email is required.</p> }
+      </div>
+      <div>
+        <label class="label" for="password">Password</label>
+        <input id="password" class="input mt-1" type="password" formControlName="password" placeholder="At least 6 characters" />
+        @if (form.get('password')?.touched && form.get('password')?.invalid) { <p class="error">Password must be at least 6 characters.</p> }
+      </div>
+      <button type="submit" class="btn-primary w-full" [disabled]="form.invalid">Create account</button>
+    </form>
+  </section>
+</main>

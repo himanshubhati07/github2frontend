@@ -1,0 +1,25 @@
+<div class="space-y-6">
+  <section class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center"><div><h2 class="text-3xl font-bold">Time In / Time Out</h2><p class="mt-1 text-muted">Record attendance while preventing duplicate or incorrect actions.</p></div><button type="button" (click)="router.navigate(['/attendance/history'])" class="btn-secondary">Attendance History</button></section>
+  @if (message()) { <div class="rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm font-semibold text-primary">{{ message() }}</div> }
+  <section class="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
+    <div class="card p-6">
+      <label class="label" for="employee">Select Employee</label>
+      <select id="employee" class="input mt-1" [ngModel]="selectedEmployeeId()" (ngModelChange)="selectedEmployeeId.set($event); message.set('')">
+        @for (employee of employees(); track employee.id) { <option [value]="employee.id">{{ employee.name }} • {{ employee.employeeId }}</option> }
+      </select>
+      @if (selectedEmployee()) { <div class="mt-6 flex items-center gap-4 rounded-3xl bg-muted-light p-4"><img [src]="selectedEmployee()!.photoUrl" class="h-16 w-16 rounded-2xl" [alt]="selectedEmployee()!.name" /><div><p class="text-xl font-bold">{{ selectedEmployee()!.name }}</p><p class="text-sm text-muted">{{ selectedEmployee()!.department }} • {{ selectedEmployee()!.designation }}</p></div></div> }
+      <div class="mt-6 grid gap-3 sm:grid-cols-2"><button type="button" (click)="checkIn()" class="btn-primary" [disabled]="!!todayRecord()?.timeIn">Check In</button><button type="button" (click)="checkOut()" class="btn-secondary" [disabled]="!todayRecord()?.timeIn || !!todayRecord()?.timeOut">Check Out</button></div>
+      <button type="button" (click)="router.navigate(['/face-scan'], { queryParams: { employee: selectedEmployeeId() } })" class="btn-secondary mt-3 w-full">Verify with Face Scan</button>
+    </div>
+    <div class="card p-6">
+      <h3 class="text-lg font-bold">Current attendance status</h3>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-3xl bg-muted-light p-4"><p class="text-sm text-muted">Employee</p><p class="mt-2 font-bold">{{ selectedEmployee()?.name || '—' }}</p></div>
+        <div class="rounded-3xl bg-muted-light p-4"><p class="text-sm text-muted">Time In</p><p class="mt-2 font-bold">{{ todayRecord()?.timeIn || 'Not checked in' }}</p></div>
+        <div class="rounded-3xl bg-muted-light p-4"><p class="text-sm text-muted">Time Out</p><p class="mt-2 font-bold">{{ todayRecord()?.timeOut || 'Not checked out' }}</p></div>
+        <div class="rounded-3xl bg-muted-light p-4"><p class="text-sm text-muted">Working Hours</p><p class="mt-2 font-bold">{{ todayRecord()?.workingHours || '0h 00m' }}</p></div>
+      </div>
+      <div class="mt-6 rounded-3xl border border-line p-5"><p class="text-sm text-muted">Status</p><p class="mt-2 text-2xl font-bold" [class.text-success]="todayRecord()?.status === 'Present'" [class.text-warning]="todayRecord()?.status === 'Late'" [class.text-danger]="!todayRecord()">{{ todayRecord()?.status || 'Absent' }}</p><p class="mt-2 text-sm text-muted">Example: Rahul Sharma • Time In 09:32 AM • Time Out 06:15 PM • Working Hours 8h 43m • Present</p></div>
+    </div>
+  </section>
+</div>
