@@ -17,6 +17,12 @@ export const mockEmployees: Employee[] = [
   { id: 'emp-8', employeeId: 'EMP-1008', name: 'Ananya Sen', email: 'ananya.sen@company.com', phone: '+91 92222 33344', department: 'Design', designation: 'Product Designer', joiningDate: '2023-07-03', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Ananya%20Sen', faceRegistered: true, status: 'Active' },
   { id: 'emp-9', employeeId: 'EMP-1009', name: 'Mohit Jain', email: 'mohit.jain@company.com', phone: '+91 91111 55566', department: 'Support', designation: 'Support Specialist', joiningDate: '2024-02-19', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Mohit%20Jain', faceRegistered: false, status: 'Active' },
   { id: 'emp-10', employeeId: 'EMP-1010', name: 'Farah Khan', email: 'farah.khan@company.com', phone: '+91 90123 45678', department: 'Finance', designation: 'Finance Analyst', joiningDate: '2020-12-07', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Farah%20Khan', faceRegistered: true, status: 'Active' },
+  { id: 'emp-11', employeeId: 'EMP-1011', name: 'Arjun Menon', email: 'arjun.menon@company.com', phone: '+91 98700 11223', department: 'Engineering', designation: 'Backend Developer', joiningDate: '2021-08-16', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Arjun%20Menon', faceRegistered: true, status: 'Active' },
+  { id: 'emp-12', employeeId: 'EMP-1012', name: 'Meera Joshi', email: 'meera.joshi@company.com', phone: '+91 97654 32109', department: 'Human Resources', designation: 'Recruitment Lead', joiningDate: '2022-05-23', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Meera%20Joshi', faceRegistered: true, status: 'Active' },
+  { id: 'emp-13', employeeId: 'EMP-1013', name: 'Rohan Das', email: 'rohan.das@company.com', phone: '+91 96543 21098', department: 'Operations', designation: 'Shift Supervisor', joiningDate: '2020-10-11', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Rohan%20Das', faceRegistered: false, status: 'Active' },
+  { id: 'emp-14', employeeId: 'EMP-1014', name: 'Isha Malhotra', email: 'isha.malhotra@company.com', phone: '+91 95432 10987', department: 'Design', designation: 'UX Researcher', joiningDate: '2023-03-27', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Isha%20Malhotra', faceRegistered: true, status: 'Active' },
+  { id: 'emp-15', employeeId: 'EMP-1015', name: 'Siddharth Pillai', email: 'siddharth.pillai@company.com', phone: '+91 94321 09876', department: 'Support', designation: 'Customer Success Manager', joiningDate: '2019-12-02', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Siddharth%20Pillai', faceRegistered: true, status: 'Inactive' },
+  { id: 'emp-16', employeeId: 'EMP-1016', name: 'Tanya Bhatia', email: 'tanya.bhatia@company.com', phone: '+91 93210 98765', department: 'Marketing', designation: 'Campaign Manager', joiningDate: '2024-01-08', photoUrl: 'https://api.dicebear.com/8.x/initials/svg?seed=Tanya%20Bhatia', faceRegistered: false, status: 'Active' },
 ];
 
 export const mockAttendanceRecords: AttendanceRecord[] = [
@@ -32,4 +38,12 @@ export const mockAttendanceRecords: AttendanceRecord[] = [
   { id: 'att-10', employeeId: 'emp-1', date: '2026-08-08', timeIn: '09:42 AM', timeOut: '06:20 PM', workingHours: '8h 38m', status: 'Late', faceVerified: true },
   { id: 'att-11', employeeId: 'emp-2', date: '2026-08-08', timeIn: '09:12 AM', timeOut: '06:00 PM', workingHours: '8h 48m', status: 'Present', faceVerified: true },
   { id: 'att-12', employeeId: 'emp-5', date: '2026-08-07', timeIn: '09:15 AM', timeOut: '06:05 PM', workingHours: '8h 50m', status: 'Present', faceVerified: true },
+  { id: 'att-13', employeeId: 'emp-11', date: '2026-08-10', timeIn: '09:08 AM', timeOut: null, workingHours: 'In progress', status: 'Present', faceVerified: true },
+  { id: 'att-14', employeeId: 'emp-12', date: '2026-08-10', timeIn: '09:36 AM', timeOut: '06:12 PM', workingHours: '8h 36m', status: 'Present', faceVerified: true },
+  { id: 'att-15', employeeId: 'emp-13', date: '2026-08-10', timeIn: '10:05 AM', timeOut: null, workingHours: 'In progress', status: 'Late', faceVerified: false },
+  { id: 'att-16', employeeId: 'emp-14', date: '2026-08-10', timeIn: '09:18 AM', timeOut: '05:52 PM', workingHours: '8h 34m', status: 'Present', faceVerified: true },
+  { id: 'att-17', employeeId: 'emp-16', date: '2026-08-10', timeIn: null, timeOut: null, workingHours: '0h 00m', status: 'Absent', faceVerified: false },
+  { id: 'att-18', employeeId: 'emp-11', date: '2026-08-09', timeIn: '09:22 AM', timeOut: '06:01 PM', workingHours: '8h 39m', status: 'Present', faceVerified: true },
+  { id: 'att-19', employeeId: 'emp-12', date: '2026-08-09', timeIn: '09:58 AM', timeOut: '06:25 PM', workingHours: '8h 27m', status: 'Late', faceVerified: true },
+  { id: 'att-20', employeeId: 'emp-14', date: '2026-08-08', timeIn: '09:11 AM', timeOut: '05:47 PM', workingHours: '8h 36m', status: 'Present', faceVerified: true },
 ];

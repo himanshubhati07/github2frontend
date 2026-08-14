@@ -18,7 +18,7 @@
         <table class="w-full min-w-[980px] text-left text-sm">
           <thead class="text-xs uppercase text-muted"><tr class="border-b border-line"><th class="py-3">Employee</th><th>ID</th><th>Department</th><th>Designation</th><th>Face</th><th>Status</th><th class="text-right">Actions</th></tr></thead>
           <tbody>
-            @for (employee of filteredEmployees(); track employee.id) {
+            @for (employee of visibleEmployees(); track employee.id) {
               <tr class="cursor-pointer border-b border-line transition last:border-0 hover:bg-muted-light" (click)="router.navigate(['/employees', employee.id])">
                 <td class="py-4"><div class="flex items-center gap-3"><img [src]="employee.photoUrl" [alt]="employee.name" class="h-10 w-10 rounded-full bg-blue-50" /><div><p class="font-bold">{{ employee.name }}</p><p class="text-xs text-muted">{{ employee.email }}</p></div></div></td>
                 <td class="font-semibold">{{ employee.employeeId }}</td><td>{{ employee.department }}</td><td>{{ employee.designation }}</td>
@@ -30,6 +30,15 @@
           </tbody>
         </table>
       </div>
+      @if (filteredEmployees().length > pageSize) {
+        <div class="mt-5 flex flex-col items-center justify-between gap-3 border-t border-line pt-5 sm:flex-row">
+          <p class="text-sm font-semibold text-muted">Showing {{ visibleEmployees().length }} of {{ filteredEmployees().length }} employees</p>
+          <div class="flex gap-2">
+            @if (hasMoreEmployees()) { <button type="button" (click)="showMore()" class="btn-secondary">Show more</button> }
+            @if (visibleEmployees().length > pageSize) { <button type="button" (click)="showLess()" class="btn-secondary">Show less</button> }
+          </div>
+        </div>
+      }
     }
   </section>
 </div>

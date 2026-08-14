@@ -13,7 +13,16 @@ export class AttendanceStoreService {
 
   private load(): AttendanceRecord[] {
     const raw = localStorage.getItem(this.key);
-    if (raw) return JSON.parse(raw) as AttendanceRecord[];
+    if (raw) {
+      const stored = JSON.parse(raw) as AttendanceRecord[];
+      const missingSeedRecords = mockAttendanceRecords.filter((seedRecord) => !stored.some((record) => record.id === seedRecord.id));
+      if (missingSeedRecords.length > 0) {
+        const merged = [...stored, ...missingSeedRecords];
+        localStorage.setItem(this.key, JSON.stringify(merged));
+        return merged;
+      }
+      return stored;
+    }
     localStorage.setItem(this.key, JSON.stringify(mockAttendanceRecords));
     return mockAttendanceRecords;
   }

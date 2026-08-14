@@ -12,7 +12,16 @@ export class EmployeeStoreService {
 
   private load(): Employee[] {
     const raw = localStorage.getItem(this.key);
-    if (raw) return JSON.parse(raw) as Employee[];
+    if (raw) {
+      const stored = JSON.parse(raw) as Employee[];
+      const missingSeedEmployees = mockEmployees.filter((seedEmployee) => !stored.some((employee) => employee.id === seedEmployee.id));
+      if (missingSeedEmployees.length > 0) {
+        const merged = [...stored, ...missingSeedEmployees];
+        localStorage.setItem(this.key, JSON.stringify(merged));
+        return merged;
+      }
+      return stored;
+    }
     localStorage.setItem(this.key, JSON.stringify(mockEmployees));
     return mockEmployees;
   }

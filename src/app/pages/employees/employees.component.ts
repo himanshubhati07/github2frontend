@@ -17,16 +17,28 @@ export class EmployeesComponent implements OnInit {
   employees = signal<Employee[]>([]);
   query = signal('');
   message = signal('');
+  visibleCount = signal(8);
+  readonly pageSize = 8;
   filteredEmployees = computed(() => {
     const q = this.query().toLowerCase().trim();
     if (!q) return this.employees();
     return this.employees().filter((employee) => [employee.name, employee.email, employee.employeeId, employee.department, employee.designation].join(' ').toLowerCase().includes(q));
   });
+  visibleEmployees = computed(() => this.filteredEmployees().slice(0, this.visibleCount()));
+  hasMoreEmployees = computed(() => this.visibleEmployees().length < this.filteredEmployees().length);
 
   ngOnInit(): void { this.load(); }
 
   load(): void {
     this.store.getAll().subscribe((employees) => this.employees.set(employees));
+  }
+
+  showMore(): void {
+    this.visibleCount.update((count) => count + this.pageSize);
+  }
+
+  showLess(): void {
+    this.visibleCount.set(this.pageSize);
   }
 
   deactivate(employee: Employee): void {
